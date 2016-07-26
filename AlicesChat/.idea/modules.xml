@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AlicesChat.iml" filepath="$PROJECT_DIR$/AlicesChat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/alicesclient/alicesclient.iml" filepath="$PROJECT_DIR$/alicesclient/alicesclient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/alicesserver/alicesserver.iml" filepath="$PROJECT_DIR$/alicesserver/alicesserver.iml" />
+    </modules>
+  </component>
+</project>
