@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.bmwgroup.com/appointmentScheduling" targetNamespace="http://www.bmwgroup.com/appointmentScheduling" xmlns="http://www.bmwgroup.com/appointmentScheduling/types">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.bmwgroup.com/appointmentScheduling">
+			<xsd:import namespace="http://www.bmwgroup.com/appointmentScheduling/types" schemaLocation="Messages_AppointmentToIspiSystem_1.2.1.xsd"/>
+			<xsd:import namespace="http://www.bmwgroup.com/appointmentScheduling/types" schemaLocation="Messages_IspiToAppointmentSystem_1.2.1.xsd"/>
+			<xsd:import namespace="http://www.bmwgroup.com/appointmentScheduling/types" schemaLocation="Messages_Common_1.2.1.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<!-- **** COMMON MESSAGES ****************************** -->
+	<wsdl:message name="checkHealthRequest">
+		<wsdl:part name="params" element="checkHealthRequest"/>
+	</wsdl:message>
+	<wsdl:message name="checkHealthResponse">
+		<wsdl:part name="params" element="checkHealthResponse"/>
+	</wsdl:message>
+	<wsdl:message name="versionLookupRequest">
+		<wsdl:part name="params" element="versionLookupRequest"/>
+	</wsdl:message>
+	<wsdl:message name="versionLookupResponse">
+		<wsdl:part name="params" element="versionLookupResponse"/>
+	</wsdl:message>
+	<!-- **** MESSAGES TO ISPI SYSTEM ****************************** -->
+	<wsdl:message name="createAppointmentRequest">
+		<wsdl:part name="params" element="createAppointmentRequest"/>
+	</wsdl:message>
+	<wsdl:message name="createAppointmentResponse">
+		<wsdl:part name="params" element="createAppointmentResponse"/>
+	</wsdl:message>
+	<wsdl:message name="updateAppointmentRequest">
+		<wsdl:part name="params" element="updateAppointmentRequest"/>
+	</wsdl:message>
+	<wsdl:message name="updateAppointmentResponse">
+		<wsdl:part name="params" element="updateAppointmentResponse"/>
+	</wsdl:message>
+	<wsdl:message name="cancelAppointmentRequest">
+		<wsdl:part name="params" element="cancelAppointmentRequest"/>
+	</wsdl:message>
+	<wsdl:message name="cancelAppointmentResponse">
+		<wsdl:part name="params" element="cancelAppointmentResponse"/>
+	</wsdl:message>
+	<!-- **** MESSAGES TO APPOINTMENT SCHEDULING SYSTEM ****************************** -->
+	<wsdl:message name="createAppointmentBaseRequest">
+		<wsdl:part name="params" element="createAppointmentBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="createAppointmentBaseResponse">
+		<wsdl:part name="params" element="createAppointmentBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="updateAppointmentBaseRequest">
+		<wsdl:part name="params" element="updateAppointmentBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="updateAppointmentBaseResponse">
+		<wsdl:part name="params" element="updateAppointmentBaseResponse"/>
+	</wsdl:message>
+		<wsdl:message name="cancelAppointmentBaseRequest">
+		<wsdl:part name="params" element="cancelAppointmentBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="cancelAppointmentBaseResponse">
+	<wsdl:part name="params" element="cancelAppointmentBaseResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="DcomAppointmentComPortType">
+		<!-- **** COMMON OPERATIONS ********************************* -->
+		<wsdl:operation name="checkHealth">
+			<wsdl:input message="tns:checkHealthRequest"/>
+			<wsdl:output message="tns:checkHealthResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="versionLookup">
+			<wsdl:input message="tns:versionLookupRequest"/>
+			<wsdl:output message="tns:versionLookupResponse"/>
+		</wsdl:operation>
+		<!-- **** OPERATIONS TO ISPI SYSTEM ********************************* -->
+		<wsdl:operation name="createAppointment">
+			<wsdl:input message="tns:createAppointmentRequest"/>
+			<wsdl:output message="tns:createAppointmentResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="updateAppointment">
+			<wsdl:input message="tns:updateAppointmentRequest"/>
+			<wsdl:output message="tns:updateAppointmentResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="cancelAppointment">
+			<wsdl:input message="tns:cancelAppointmentRequest"/>
+			<wsdl:output message="tns:cancelAppointmentResponse"/>
+		</wsdl:operation>
+		<!-- **** OPERATIONS TO APPOINTMENT SCHEDULING SYSTEM ****************************** -->
+		<wsdl:operation name="createAppointmentBase">
+			<wsdl:input message="tns:createAppointmentBaseRequest"/>
+			<wsdl:output message="tns:createAppointmentBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="updateAppointmentBase">
+			<wsdl:input message="tns:updateAppointmentBaseRequest"/>
+			<wsdl:output message="tns:updateAppointmentBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="cancelAppointmentBase">
+			<wsdl:input message="tns:cancelAppointmentBaseRequest"/>
+			<wsdl:output message="tns:cancelAppointmentBaseResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="DcomAppointmentComBinding" type="tns:DcomAppointmentComPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<!-- **** COMMON OPERATIONS ******************************* -->
+		<wsdl:operation name="checkHealth">
+			<soap:operation soapAction="http://www.bmwgroup.com/appointmentScheduling/checkHealth" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="versionLookup">
+			<soap:operation soapAction="http://www.bmwgroup.com/appointmentScheduling/versionLookup" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<!-- **** OPERATIONS TO ISPI SYSTEM ******************************* -->
+		<wsdl:operation name="createAppointment">
+			<soap:operation soapAction="http://www.bmwgroup.com/appointmentScheduling/createAppointment" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="updateAppointment">
+			<soap:operation soapAction="http://www.bmwgroup.com/appointmentScheduling/updateAppointment" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="cancelAppointment">
+			<soap:operation soapAction="http://www.bmwgroup.com/appointmentScheduling/cancelAppointment" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<!-- **** OPERATIONS TO APPOINTMENT SCHEDULING SYSTEM ****************************** -->
+		<wsdl:operation name="createAppointmentBase">
+			<soap:operation soapAction="http://www.bmwgroup.com/appointmentScheduling/createAppointmentBase" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="updateAppointmentBase">
+			<soap:operation soapAction="http://www.bmwgroup.com/appointmentScheduling/updateAppointmentBase" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="cancelAppointmentBase">
+			<soap:operation soapAction="http://www.bmwgroup.com/appointmentScheduling/cancelAppointmentBase" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="dcomAppointmentCommunicationService">
+		<wsdl:port name="DcomAppointmentComPortType" binding="tns:DcomAppointmentComBinding">
+			<soap:address location="http://localhost/"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

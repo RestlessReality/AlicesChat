@@ -1,25 +1,27 @@
 package xmlvalidator;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import javax.xml.XMLConstants;
-import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
-//todo eigtl in 2 Klassen aufteilen
-// soap-envelope entfernen, siehe dcom-methode: reduceXMLToSoapBody
-
+@Component
 public class DirScanner {
+
+    @Autowired
+    private XmlValidator xmlValidator;
+
+    @Autowired
+    private SoapEnvelopeRemover soapEnvelopeRemover;
 
     /**
      * Recursively checks xml-files in directory for conformity with the schemafile
-     * @param directory
-     * @param schemafile
+     * @param directory The directory in which is searched for xml-files
+     * @param schemafile The xsd-Schemafile against which the xml-files are checked
      */
     public int checkDir( File directory, File schemafile ){
 
@@ -40,52 +42,38 @@ public class DirScanner {
                 // check if xml-file
                 if (!file.getName().toLowerCase().endsWith(".xml")) {
                     continue;
-                }
-                nrOfXmls++;
 
-                // if yes, check if conform to schema
-                System.out.println("xml-file is now being checked against schema");
-                try {
-                    if(isSchemaConform(file, schemafile)){
-                        System.out.println("yes, it's conform!");
-                    }else {
-                        System.out.println("not conform");
+                }else {
+                    nrOfXmls++;
+
+                    // remove Soap-envelope //todo NOT YET USED
+                    try {
+                        Document document = soapEnvelopeRemover.reduceXMLToSoapBody(getFileContentAsString(file), XmlNamespaces.MAP);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                } catch (SAXException e) {
-                    e.printStackTrace();
-                }
 
+                    // check if conform to schema
+                    System.out.println("checking xml-file against schema");
+                    try {
+                        if (xmlValidator.isSchemaConform(file, schemafile)) {
+                            System.out.println("yes, it's conform!");
+                        } else {
+                            System.out.println("not conform");
+                        }
+                    } catch (SAXException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
-
         return nrOfXmls;
 
     }
 
-
-    private boolean isSchemaConform(File inXmlFile, File schemafile) throws SAXException {
-        boolean isValid = true;
-        Source xmlFile = new StreamSource(inXmlFile);
-
-        SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-
-        Schema schema = schemaFactory.newSchema(schemafile);
-
-        Validator validator = schema.newValidator();
-        try {
-            validator.validate(xmlFile);
-            System.out.println(xmlFile.getSystemId() + " is valid");
-        } catch (SAXException e) {
-            System.out.println(xmlFile.getSystemId() + " is NOT valid");
-            System.out.println("Reason: " + e.getLocalizedMessage());
-            isValid = false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            isValid = false;
-        }
-
-        return isValid;
+    private String getFileContentAsString(File file) throws IOException {
+        byte[] encoded = Files.readAllBytes(file.toPath());
+        return new String(encoded);
     }
-
 
 }

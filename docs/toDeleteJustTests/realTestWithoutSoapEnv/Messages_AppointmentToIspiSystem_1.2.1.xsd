@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2013 rel. 2 sp1 (http://www.altova.com) von Florian Utzt (QAware GmbH) bearbeitet -->
+<!-- edited with XMLSpy v2015 rel. 3 sp1 (x64) (http://www.altova.com) by Wilhelm Haas (QAware GmbH) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.bmwgroup.com/appointmentScheduling/types" targetNamespace="http://www.bmwgroup.com/appointmentScheduling/types" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="ObjectTypes_1.2.1.xsd"/>
+	<!-- Begin ISPI system to appointment scheduling system interactions ================================================================================ -->
+	<xs:element name="createAppointmentRequest">
+		<xs:annotation>
+			<xs:documentation>Transfer data of a new appointment to ISPI. </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="typeMessageBase">
+					<xs:sequence>
+						<xs:element name="appointment" type="typeAppointmentFromAppointmentToIspiNew">
+							<xs:annotation>
+								<xs:documentation>Appointment data from the appointment scheduling system.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="createAppointmentResponse">
+		<xs:annotation>
+			<xs:documentation>Response</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="typeResponseBase"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="updateAppointmentRequest">
+		<xs:annotation>
+			<xs:documentation>Transfer data of a updated appointment to ISPI. The scheduling system must send all data of the appointment and not only the data that has changed.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="typeMessageBase">
+					<xs:sequence>
+						<xs:element name="appointment" type="typeAppointmentFromAppointmentToIspiUpdate">
+							<xs:annotation>
+								<xs:documentation>Appointment data from the appointment scheduling system.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="updateAppointmentResponse">
+		<xs:annotation>
+			<xs:documentation>Response</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="typeResponseBase"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="cancelAppointmentRequest">
+		<xs:annotation>
+			<xs:documentation>Cancels a appointment in ISPI.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="typeMessageBase">
+					<xs:sequence>
+						<xs:element name="appointmentId" type="typeDatabaseId">
+							<xs:annotation>
+								<xs:documentation>ID of the appointment in the appointment scheduling system.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="cancelAppointmentResponse">
+		<xs:annotation>
+			<xs:documentation>Response</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="typeResponseBase"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!-- End ISPI system to appointment scheduling system interactions ************************************************************************************************************ -->
+</xs:schema>

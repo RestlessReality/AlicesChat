@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2013 rel. 2 sp1 (http://www.altova.com) von Florian Utzt (QAware GmbH) bearbeitet -->
+<!-- edited with XMLSpy v2013 rel. 2 sp1 (http://www.altova.com) by Florian Utzt (QAware GmbH) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.bmwgroup.com/appointmentScheduling/types" targetNamespace="http://www.bmwgroup.com/appointmentScheduling/types" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="ObjectTypes_1.2.1.xsd"/>
+	<xs:element name="versionLookupRequest">
+		<xs:annotation>
+			<xs:documentation>Message that checks which version of the DCOM-Appointment interface is supported by the system that receives the request.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="requestedVersion">
+					<xs:annotation>
+						<xs:documentation>Metadata that are needed for the technical communication.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="schemaName" type="xs:string" use="required" fixed="BmwDcomAppointment">
+							<xs:annotation>
+								<xs:documentation>The schema name is used to determine the correct schema to validate against.</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="schemaVersion" type="xs:string" use="required">
+							<xs:annotation>
+								<xs:documentation>The version of the schema that the application uses.</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="application" use="required">
+							<xs:annotation>
+								<xs:documentation>The application that invokes the interaction plus the version number. Must be used as defined in the requesting application's interface contract with DCOM.</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="128"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="versionLookupResponse">
+		<xs:annotation>
+			<xs:documentation>Response that contains the version number.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="supportedVersion">
+					<xs:annotation>
+						<xs:documentation>Metadata that are needed for the technical communication.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="schemaName" type="xs:string" use="required">
+							<xs:annotation>
+								<xs:documentation>The schema name is used to determine the correct schema to validate against.</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="schemaVersion" type="xs:string" use="required">
+							<xs:annotation>
+								<xs:documentation>The version of the schema that the application uses.</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="checkHealthRequest">
+		<xs:annotation>
+			<xs:documentation>Message that checks the health and the connection to the target system. The appointment scheduling systems may send this request to check the connection to IPS. IPS may send this request to check the connection to the appointment scheduling system. </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>Request the configuration data of the connected.</xs:documentation>
+			</xs:annotation>
+			<xs:complexContent>
+				<xs:extension base="typeMessageBase"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="checkHealthResponse">
+		<xs:annotation>
+			<xs:documentation>Response. If the response contains no errors, everything is ok. The contained errors describe the problem of the target system or the connection. Possible errors include: no connection possible, invalid outlet data, etc.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="typeResponseBase"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2013 rel. 2 sp1 (http://www.altova.com) von Florian Utzt (QAware GmbH) bearbeitet -->
+<!-- edited with XMLSpy v2015 rel. 3 sp1 (x64) (http://www.altova.com) by Wilhelm Haas (QAware GmbH) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.bmwgroup.com/appointmentScheduling/types" targetNamespace="http://www.bmwgroup.com/appointmentScheduling/types" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="ObjectTypes_1.2.1.xsd"/>
+	<!-- Begin appointment scheduling system to ISPI system interactions ================================================================================ -->
+	<xs:element name="createAppointmentBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Transfer appointment data from ISPI to the appointment scheduling system in order to create a new appointment.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="typeMessageBase">
+					<xs:sequence>
+						<xs:element name="appointmentBase" type="typeAppointmentFromIspiToAppointmentSystemNew">
+							<xs:annotation>
+								<xs:documentation>The basket for this service appointment.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="createAppointmentBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="typeResponseBase">
+					<xs:sequence>
+						<xs:element name="payload" type="typeCreateAppointmentBaseResponsePayload" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="updateAppointmentBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Transfer appointment data from ISPI to the appointment scheduling system in order to update a existing appointment. The ISPI system must send all data of the appointment and not only the data that has changed.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="typeMessageBase">
+					<xs:sequence>
+						<xs:element name="appointmentBase" type="typeAppointmentFromIspiToAppointmentSystemUpdate"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="updateAppointmentBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="typeResponseBase"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="cancelAppointmentBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Cancels a appointment in the appointment scheduling system.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="typeMessageBase">
+					<xs:sequence>
+						<xs:element name="appointmentId" type="typeDatabaseId">
+							<xs:annotation>
+								<xs:documentation>ID of the appointment in the appointment scheduling system.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="cancelAppointmentBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="typeResponseBase"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!-- End appointment scheduling system to ISPI system interactions ************************************************************************************************************************** -->
+	<!--** Response Payload **********************************************************************************************************************************************-->
+	<xs:complexType name="typeCreateAppointmentBaseResponsePayload">
+		<xs:annotation>
+			<xs:documentation>Payload of the CreateAppointmentResponse message. Returns the ID of the created appointment in the scheduling system.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="appointmentId" type="typeDatabaseId">
+						<xs:annotation>
+							<xs:documentation>ID of the newly created appointment as assigned by the appointment scheduling system.     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

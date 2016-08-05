@@ -1,0 +1,1449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2013 rel. 2 sp1 (http://www.altova.com) von Florian Utzt (QAware GmbH) bearbeitet -->
+<!-- edited with XMLSpy v2013 rel. 2 sp1 (http://www.altova.com) by Florian Utzt (QAware GmbH) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.bmwgroup.com/appointmentScheduling/types" xmlns:namespace="http://www.bmwgroup.com/appointmentScheduling/types" targetNamespace="http://www.bmwgroup.com/appointmentScheduling/types" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!--** Appointment data from ISPI to the appointment scheduling system *********************************************************************************** -->
+	<xs:complexType name="typeAppointmentFromIspiToAppointmentSystemNew">
+		<xs:annotation>
+			<xs:documentation>Appointment data of a new appointment.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeAppointmentBase">
+				<xs:sequence>
+					<xs:element name="serviceCaseStatus" type="typeServiceCaseStatusEnum" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The status of the ISPI service case which is related to this appointment.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="requiredWorkshopCapacity" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The required workshop capacity given in number of AWs.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="permissions" type="typePermissions">
+						<xs:annotation>
+							<xs:documentation>Permissions of the appointment scheduling system.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeAppointmentFromIspiToAppointmentSystemUpdate">
+		<xs:annotation>
+			<xs:documentation>Appointment data of a changed appointment.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeAppointmentBase">
+				<xs:sequence>
+					<xs:element name="appointmentId" type="typeDatabaseId">
+						<xs:annotation>
+							<xs:documentation>ID of the appointment in the appointment scheduling system.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="serviceCaseStatus" type="typeServiceCaseStatusEnum" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The status of the ISPI service case which is related to this appointment.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="requiredWorkshopCapacity" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The required workshop capacity given in number of AWs.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="permissions" type="typePermissions">
+						<xs:annotation>
+							<xs:documentation>Permissions of the appointment scheduling system.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="vehicleReturnData" type="typeAppointmentSchedulingData" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Appointment data for vehicle return.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--** Appointment data from the appointment scheduling system to ISPI *********************************************************************************** -->
+	<xs:complexType name="typeAppointment">
+		<xs:annotation>
+			<xs:documentation>Appointment data. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeAppointmentBase">
+				<xs:sequence>
+					<xs:element name="appointmentId" type="typeDatabaseId">
+						<xs:annotation>
+							<xs:documentation>ID of the appointment in the appointment scheduling system.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="statusInSchedulingSystem" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The status of this appointment as it is set in the appointment scheduling system. This status may only be used by ISPI for displaying purposes.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="serviceReceptionData" type="typeAppointmentSchedulingData">
+						<xs:annotation>
+							<xs:documentation>Appointment data for the service reception.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="vehicleReturnData" type="typeAppointmentSchedulingData" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Appointment data for vehicle return.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="requestedCourtesyVehicle" type="typeCourtesyVehicleBookingInformation" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Courtesy vehicle that has been requested by the customer.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeAppointmentFromAppointmentToIspiNew">
+		<xs:annotation>
+			<xs:documentation>Appointment data of a new appointment. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeAppointment">
+				<xs:sequence>
+					<xs:element name="appointmentSource" type="typeAppointmentSource">
+						<xs:annotation>
+							<xs:documentation>Where the appointment was created. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="creationDateTime" type="xs:dateTime">
+						<xs:annotation>
+							<xs:documentation>Date and time of the appointment creation.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="createdBy" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Name of person (customer or service advisor) which created the appointment.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeAppointmentFromAppointmentToIspiUpdate">
+		<xs:annotation>
+			<xs:documentation>Appointment data of a changed appointment.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeAppointment">
+				<xs:sequence>
+					<xs:element name="lastChangedDateTime" type="xs:dateTime">
+						<xs:annotation>
+							<xs:documentation>Date and time of the latest appointment change.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="lastChangedBy" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Name of person (customer or service advisor) which last changed the appointment.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeCourtesyVehicleBookingInformation">
+		<xs:annotation>
+			<xs:documentation>Booking information for a courtesy vehicle.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="bookingPeriod" type="typeBookingPeriodDateTime">
+						<xs:annotation>
+							<xs:documentation>Booking period of the courtesy vehicle.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="courtesyVehicleDetails" type="typeCourtesyVehicleDetails" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Details of the booked courtesy vehicle if a specific vehicle has already been chosen. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeCourtesyVehicleDetails">
+		<xs:annotation>
+			<xs:documentation>Details of the courtesy vehicle.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="vin" type="typeVin">
+						<xs:annotation>
+							<xs:documentation>Vehicle identification number / chassis number of the courtesy vehicle.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="numberPlate" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Registration number of the courtesy vehicle.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="modelCode" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>TAIS type of the model, e.g. AL71.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="devSeriesCode" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Development series code, e.g. E30.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="fuelLevel" type="typePercentage" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Fuel level of the vehicle.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeBookingPeriodDateTime">
+		<xs:annotation>
+			<xs:documentation>A booking period possibly extending over several days.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:attribute name="startDateTime" type="xs:dateTime" use="required">
+					<xs:annotation>
+						<xs:documentation>Start date time of the booking period.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="endDateTime" type="xs:dateTime" use="required">
+					<xs:annotation>
+						<xs:documentation>End date time of the booking period.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="typePercentage">
+		<xs:annotation>
+			<xs:documentation>General percentage format.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:totalDigits value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--** Basket Jobs *********************************************************************************** -->
+	<xs:complexType name="typeFastPlanningItem">
+		<xs:annotation>
+			<xs:documentation>Type for fast planning item.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeBasketItem">
+				<xs:sequence>
+					<xs:element name="categoryId" type="typeDatabaseId" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The ID of the fast planning item category.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Id" type="typeDatabaseId">
+						<xs:annotation>
+							<xs:documentation>The ID of the fast planning item. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="description" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>The description of the fast planning item.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="remark" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>An additional remark for the  fast planning item.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="quantityInAW" type="xs:int">
+						<xs:annotation>
+							<xs:documentation>The quantity in AW (Arbeitswert).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeAmountAndCurrency">
+		<xs:annotation>
+			<xs:documentation>Type for amount with currency</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:decimal">
+				<xs:attribute name="currency" type="typeCurrency" use="optional">
+					<xs:annotation>
+						<xs:documentation>ISO 4217 currency code, e.g. "EUR", "USD"</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="typeDefectCode">
+		<xs:annotation>
+			<xs:documentation>Type for defect code ("Befundnummer")</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:attribute name="code" use="required">
+					<xs:annotation>
+						<xs:documentation>Defect code ("Befundnummer")</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="10"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="description" type="xs:string" use="required">
+					<xs:annotation>
+						<xs:documentation>Denomination of the defect</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeJob">
+		<xs:annotation>
+			<xs:documentation>Type for a job </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="ispiJobId" type="typeDatabaseId" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Job identifier, set by ISPI Next</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="schedulingSystemJobId" type="typeDatabaseId" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>External job identifier, set by the appointment scheduling system</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="jobDescription" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Job description e.g. brake disk replacement</xs:documentation>
+							<xs:appinfo/>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="originalStatementCustomer" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>"O-Ton" customer for the job</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="commentLineList" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>List of comment lines for the job</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="commentLine" type="xs:string" minOccurs="0" maxOccurs="1000"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="repeatedRepair" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>True if the customer repeatedly reports the same issue.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="fastPlanningItem" type="typeFastPlanningItem" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The fast planning item</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="flatRateUnitList" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>List of flat rate units</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="flatRateUnit" type="typeFlatRateUnit" minOccurs="0" maxOccurs="1000">
+									<xs:annotation>
+										<xs:documentation>Flat rate unit</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="subletList" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>List of sublets</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="sublet" type="typeSublet" minOccurs="0" maxOccurs="1000">
+									<xs:annotation>
+										<xs:documentation>Sublet</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="partList" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>List of parts</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="part" type="typePart" minOccurs="0" maxOccurs="1000">
+									<xs:annotation>
+										<xs:documentation>Part</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="packageList" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>List of packages</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="package" type="typeServicePackage" minOccurs="0" maxOccurs="1000">
+									<xs:annotation>
+										<xs:documentation>Package</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="jobFlexFieldList" type="typeFlexFieldList" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>List of flex fields for this job</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--** Service Package *********************************************************************************** -->
+	<xs:complexType name="typeServicePackage">
+		<xs:annotation>
+			<xs:documentation>Type for package</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeBasketItem">
+				<xs:sequence>
+					<xs:element name="packageId" type="typeServicePackageId">
+						<xs:annotation>
+							<xs:documentation>Package number</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="description" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Description of the package.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="packageType" type="typeServicePackageType">
+						<xs:annotation>
+							<xs:documentation>Type of the SRP, regular, marketing of warranty. More types will be defined</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="defectCode" type="typeDefectCode" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Indication of the defect (used for warranty repair packages)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="flatRateUnitList" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>List of flat rate units</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="flatRateUnit" type="typeFlatRateUnit" minOccurs="0" maxOccurs="1000">
+									<xs:annotation>
+										<xs:documentation>Flat rate unit</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="subletList" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>List of sublets</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="sublet" type="typeSublet" minOccurs="0" maxOccurs="1000">
+									<xs:annotation>
+										<xs:documentation>Sublet</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="partList" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>List of parts.</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="part" type="typePart" minOccurs="0" maxOccurs="1000">
+									<xs:annotation>
+										<xs:documentation>Part</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeServicePackageId">
+		<xs:annotation>
+			<xs:documentation>Type for package id that uniquely identifies a package.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="number" type="typeServicePackageNumber">
+						<xs:annotation>
+							<xs:documentation>Number of the package. Local package (isLocal="true"): up to 40 characters. BMW package (isLocal="false"): exactly 13 characters. The complete BMW package number consists of numberBasic+"1"+vehicleType+"0" and has to be composed in the calling application. For marketing campaigns, the package number consists of exactly 15 characters. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="isLocal" type="xs:boolean">
+						<xs:annotation>
+							<xs:documentation>Indicates whether this is a BMW package (false) of a dealer-specific package (true).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="typeServicePackageType" final="restriction">
+		<xs:annotation>
+			<xs:documentation>Type of package</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SRP">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">"normal" service repair package</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SIP">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">service inclusive package</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MRP">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">marketing repair package - for marketing campaigns</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GRP">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">warranty repair package</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VLP">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">value line - discount package</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CCP">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">care and cosmetic package</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PAP">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">paint package</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TCP">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Technical campaign package. This package type is DEPRECATED. It is not removed because older service orders may contain packages of that type. However, it will no be accepted in requests to the DMS. </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DLP">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Dealer local package. This package type is DEPRECATED. It is not removed because older service orders may contain packages of that type. However, it will no be accepted in requests to the DMS. </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MKP">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Marketing campaign package. This package type is DEPRECATED. It is not removed because older service orders may contain packages of that type. However, it will no be accepted in requests to the DMS. </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="COL">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">No package. This package type is DEPRECATED. It is not removed because older service orders may contain packages of that type. However, it will no be accepted in requests to the DMS. </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ACP">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Accessory package. This package type is DEPRECATED. It is not removed because older service orders may contain packages of that type. However, it will no be accepted in requests to the DMS. </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="typeServicePackageNumber">
+		<xs:annotation>
+			<xs:documentation>Type for BMW and non BMW service package numbers.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="40"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--** Part *********************************************************************************** -->
+	<xs:complexType name="typePart">
+		<xs:annotation>
+			<xs:documentation>Type for part </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeBasketItem">
+				<xs:sequence>
+					<xs:element name="number" type="typePartNumber">
+						<xs:annotation>
+							<xs:documentation>Number of a part, max. 40 characters. BMW parts have exactly 11 characters.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="description" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Description of the part.</xs:documentation>
+							<xs:documentation>german: "Beschreibung "</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="quantity" type="xs:decimal">
+						<xs:annotation>
+							<xs:documentation>Number of parts</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="unit" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Unit of the quantity, e. g. pieces, litres.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="isLocal" type="xs:boolean">
+						<xs:annotation>
+							<xs:documentation>Indicates whether this is a dealer-specific part (true) or an BMW part with an EPK part number (false).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="typePartNumber">
+		<xs:annotation>
+			<xs:documentation>Type for BMW and non BMW part number</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="40"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--** Sublet *********************************************************************************** -->
+	<xs:complexType name="typeSublet">
+		<xs:annotation>
+			<xs:documentation>Type for sublets (third party items). Often the service advisor has to add items to the work items list which come from third parties. For example the vehicle is towed in by a breakdown service or a standard part is bought from a spare parts shop because it is currently not in stock at the dealer. These items can be added as a third party item.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeBasketItem">
+				<xs:sequence>
+					<xs:element name="subletCode" type="typeSubletCode"/>
+					<xs:element name="description" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Description of the sublet. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="typeSubletCode">
+		<xs:annotation>
+			<xs:documentation>Type for the sublet code.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="40"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--** Flat Rate Unit *********************************************************************************** -->
+	<xs:complexType name="typeFlatRateUnit">
+		<xs:annotation>
+			<xs:documentation>Type for flat rate units with basic properties</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeBasketItem">
+				<xs:sequence>
+					<xs:element name="number" type="typeFlatRateNumber">
+						<xs:annotation>
+							<xs:documentation>Number of the flat rate unit, max 40 characters. Exactly 7 digits for BMW flat rate units.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="description" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The description of the flat rate unit.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="quantity" type="xs:decimal">
+						<xs:annotation>
+							<xs:documentation>Number of flat rate units.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="unit" type="typeFruUnitEnum" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Unit of the quantity.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="isLocal" type="xs:boolean">
+						<xs:annotation>
+							<xs:documentation>Indicates whether this is a dealer-defined or non-BMW FRU (true) or a BMW central FRU (false)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="typeFlatRateNumber">
+		<xs:annotation>
+			<xs:documentation>Flat rate number</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="40"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="typeFruUnitEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeration of all units that can be used for flat rates</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AW">
+				<xs:annotation>
+					<xs:documentation>Arbeitswerte</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="min">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">minutes</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--** Customer ***********************************************************************************************-->
+	<xs:complexType name="typeCustomerIdentification">
+		<xs:annotation>
+			<xs:documentation>Details for identification of a customer as provided by the calling system.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="customerNames" type="typeCustomerName">
+						<xs:annotation>
+							<xs:documentation>The name of the customer dependent on the customer type (private or business).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="dmsId" type="typeDatabaseId" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Customer ID from DMS if the customer is already known by DMS and the calling system has access to DMS data. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="customerDetails" type="typeCustomerDetails" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Customer details if the DMS ID of the customer is not known or the customer does not exist in the DMS.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeCustomerDetails">
+		<xs:annotation>
+			<xs:documentation>Details of a customer as provided by the calling system.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="customerId" type="typeDatabaseId" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The ID of the customer in the appointment scheduling system. The ID must be filled by the  appointment scheduling system or  if it is known by the calling system.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="contactData" type="typeCustomerContactData">
+						<xs:annotation>
+							<xs:documentation>The contact details of the customer that are known by the calling system.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeCustomerName">
+		<xs:annotation>
+			<xs:documentation>Name of a customer dependent on the customer type (private or business) as provided by the calling system.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:choice>
+					<xs:sequence>
+						<xs:element name="lastName" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>Last name of the customer if the customer is a private individual.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="firstName" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>First name of the customer if the customer is a private individual.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="middleName" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Second or middle name of the customer if the customer is a private individual.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:element name="companyName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Company name of the customer if the customer is a legal person. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeCustomerContactData">
+		<xs:annotation>
+			<xs:documentation>Contact details of a customer as provided by the calling system.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="email" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Email address of the customer.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="phoneNumber" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Phone number of the customer.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="preferredContactChannel" type="typeCommunicationChannelEnum" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The contact channel that the service advisor / dealer should use to contact the customer with questions or news regarding the service case.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="street" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Street name</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="streetNo" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Street number</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="extraAddressLine1" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Additional address line, e. g. rear building</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="extraAddressLine2" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Additional address line, e. g. Apartment 3/13</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="city" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Place / city, e. g. Columbus</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="postCode" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Postcode, e. g. D-81677</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="state" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>State / province, required in some countries, e. g. Ohio</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="country" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>2-letter country code as defined in ISO-3166-1.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="typeVin">
+		<xs:annotation>
+			<xs:documentation>The chassis number. Either the full VIN with 17 digits or a VIN short with 7 digits.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z0-9]{7}"/>
+			<xs:pattern value="[a-zA-Z0-9]{17}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--** Vehicle **************************************************************************************************-->
+	<xs:complexType name="typeCustomerVehicleDetails">
+		<xs:annotation>
+			<xs:documentation>Details of the customer's vehicle as provided by the calling system.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="vin" type="typeVin" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Vehicle identification number / chassis number of the customer's vehicle.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="numberPlate" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Registration number of the customer's vehicle.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="brand" type="typeBmwBrand">
+						<xs:annotation>
+							<xs:documentation>Brand of the BMW vehicle. The following values are used: BMW, BMW_i, MINI, RR, MOT.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="modelDesignation" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Sales model name of the vehicle (German: "Modellbezeichnung"), e.g. 320d.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="registrationDate" type="xs:date" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="en">Date of the initial vehicle registration.</xs:documentation>
+							<xs:documentation xml:lang="de">Datum der Erstzulassung</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="odometerReading" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The current mileage of the vehicle.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--** Appointment scheduling system integration message base types and headers *******************************************************************-->
+	<xs:complexType name="typeMessageBase">
+		<xs:annotation>
+			<xs:documentation>Base element for all DCOM messages (requests and responses).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="technicalHeader" type="typeTechnicalHeader">
+						<xs:annotation>
+							<xs:documentation>Metadata that are needed for the technical communication.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="businessHeader" type="typeBusinessHeader">
+						<xs:annotation>
+							<xs:documentation>Common metadata that are needed for the content transfer.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeTechnicalHeader">
+		<xs:annotation>
+			<xs:documentation>Metadata that are needed for the technical communication.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:attribute name="schemaName" type="xs:string" use="required" fixed="BmwDcomAppointment">
+					<xs:annotation>
+						<xs:documentation>The schema name is used to determine the correct schema to validate against.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="schemaVersion" type="xs:string" use="required" fixed="1.2.1">
+					<xs:annotation>
+						<xs:documentation>The version of the schema. A fixed value that changes when a new version of the schema is released.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="interactionId" type="typeGuid" use="required">
+					<xs:annotation>
+						<xs:documentation>ID of the interface interaction, provided by the client application. The ID has to be a GUID with at least 32 characters.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="application" use="required">
+					<xs:annotation>
+						<xs:documentation>The application that invokes the interaction plus the version number. Must be used as defined in the requesting application's interface contract with DCOM!</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="128"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="locale" type="xs:language" use="required">
+					<xs:annotation>
+						<xs:documentation>Language (ISO 639) and country (ISO 3166) code, connected by a hyphen. Example: "de-DE". Exception messages and description values of the response objects are expected in this language.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeResponseBase">
+		<xs:annotation>
+			<xs:documentation>Base element for all DCOM responses.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeMessageBase">
+				<xs:sequence>
+					<xs:element ref="errorList" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The interaction did not succeed. If an error is directly attached to an item, an additional error indicates this fact here.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeBusinessHeader">
+		<xs:annotation>
+			<xs:documentation>Common metadata that are needed for the content transfer.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="outlet" type="typeDealerType">
+						<xs:annotation>
+							<xs:documentation>The outlet to which the appointment belongs.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeEmployeeReference">
+		<xs:annotation>
+			<xs:documentation>References an assistant or employee of the dealer like a sales person or a service advisor.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="assistantId" type="typeDatabaseId">
+						<xs:annotation>
+							<xs:documentation>The internal identifier of the employee.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="firstName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>The first name of the employee.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="lastName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>The family name of the employee.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeAppointmentDateTime">
+		<xs:annotation>
+			<xs:documentation>Date and time of an appointment.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="date" type="xs:date">
+						<xs:annotation>
+							<xs:documentation>Date of the appointment.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="startTime" type="xs:time">
+						<xs:annotation>
+							<xs:documentation>Start time of the appointment.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="endTime" type="xs:time">
+						<xs:annotation>
+							<xs:documentation>End time of the appointment.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeAppointmentSchedulingData">
+		<xs:annotation>
+			<xs:documentation>Basic planning data for an appointment.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeAppointmentDateTime">
+				<xs:sequence>
+					<xs:element name="serviceAdvisor" type="typeEmployeeReference" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The ID and name of the service advisor in charge of the appointment. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="appointmentSupplementList" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Appointment supplements that have been scheduled for this appointment, e.g. customer is waiting during the service.</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="appointmentSupplement" type="xs:string" minOccurs="0" maxOccurs="1000">
+									<xs:annotation>
+										<xs:documentation>An appointment supplement that has been scheduled for this appointment.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="appointmentType" type="typeDynamicValue">
+						<xs:annotation>
+							<xs:documentation>The appointment type. E.g. for reception: Service Consultation at Vehicle with Customer, Service Consultation at Vehicle without Customer, Service Consultation. E.g. for return:  Vehicle Return with Service Advisor, Simple Vehicle Return.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--** Common types ****************************************************************************************-->
+	<xs:complexType name="typeDcomBase" abstract="true">
+		<xs:annotation>
+			<xs:documentation>Base element for all types. A common base class is useful in the generated Java/.NET code.</xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:complexType name="typeAppointmentBase">
+		<xs:annotation>
+			<xs:documentation>Base data of a appointment.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="customer" type="typeCustomerIdentification">
+						<xs:annotation>
+							<xs:documentation>Identification of the customer the appointment is scheduled for.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="customerVehicle" type="typeCustomerVehicleDetails">
+						<xs:annotation>
+							<xs:documentation>Details of the customer's vehicle.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="teleserviceId" type="typeDatabaseId" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>ID of the teleservice ticket.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="dmsAppointmentId" type="typeDatabaseId" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>ID of the DMS appointment.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="dmsOrderId" type="typeDatabaseId" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>ID of the DMS order.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="serviceCaseId" type="typeGuid" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>ISPI internal ID to identify an service case.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="originalStatementCustomer" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>"O-Ton" customer for the appointment.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="commentLineList" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>List of comment lines for the appointment from the service advisor.</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="commentLine" type="xs:string" minOccurs="0" maxOccurs="1000"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="basket" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The basket for this appointment.</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="jobs" type="typeJob" minOccurs="0" maxOccurs="1000"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="flexFieldList" type="typeFlexFieldList" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The list of flex fields for this appointment.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeBasketItem">
+		<xs:annotation>
+			<xs:documentation>Base type for all basket items (fast planning items, parts, flat rate units, sublets, packages)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="grossPrice" type="typeAmountAndCurrency" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The gross price of this item.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeDealerType">
+		<xs:annotation>
+			<xs:documentation>Identification of the dealer by BMW dealer numbers.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:attribute name="distributionPartnerNumber" use="required">
+					<xs:annotation>
+						<xs:documentation>BMW number that identifies the dealer. German: Vertriebspartnernummer</xs:documentation>
+						<xs:documentation xml:lang="de">Vertriebspartnernummer</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="5"/>
+							<xs:maxLength value="5"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="bmwOutletNumber" use="required">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Number identifying the outlet of the distribution partner. German: Betriebsnummer</xs:documentation>
+						<xs:documentation xml:lang="de">Betriebsnummer (BetrNr.) einer Filiale des Vertriebspartners.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="2"/>
+							<xs:maxLength value="2"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="errorList">
+		<xs:annotation>
+			<xs:documentation>List of errors</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="error" type="typeError" minOccurs="0" maxOccurs="1000"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="typeError">
+		<xs:annotation>
+			<xs:documentation>Error description type. The error structure is used for any information that DCOM may give in the response besides the regular content of the response. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="errorCode">
+						<xs:annotation>
+							<xs:documentation>ID for diagnostics and support. Format: AA_DCOM-xxxx (decimal number with 4 digits).</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="16"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="errorCategory" type="typeErrorCategoryEnum">
+						<xs:annotation>
+							<xs:documentation>Enumeration. FATAL: no user correction possible. REJECT: user correction required or the appointment scheduling system cannot deliver requested data. INFO:  details of the processing. The process can go on.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="errorDescription" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>User readable message text in English.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="errorDescriptionLocal" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>User readable language specific  message text.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeDynamicValue">
+		<xs:annotation>
+			<xs:documentation>Holds the key of a dynamic item and the display name for the key. Dynamic items are used for enumerations that are specific to the dealer, market, country or scheduling system and thus cannot be defined in the XML schema.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typeDcomBase">
+				<xs:sequence>
+					<xs:element name="internalKey">
+						<xs:annotation>
+							<xs:documentation>Internal key of the item. </xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="64"/>
+								<xs:whiteSpace value="collapse"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="displayValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The value that is displayed in the user interface. Required if the receiving application may not know the item, e. g. when pushing a catalog of resources to another system.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="typeFlexFieldList">
+		<xs:annotation>
+			<xs:documentation>List of flex fields.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="flexField" minOccurs="0" maxOccurs="1000">
+				<xs:annotation>
+					<xs:documentation>Flex fields are used to transport additional information (e.g. data required for KPIs) which cannot be transported over other fields.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="name" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>Unique Identifier for this flex field</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="typePermissions">
+		<xs:annotation>
+			<xs:documentation>Permissions of the appointment scheduling system.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="addingItemsToBasket" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>True if the appointment scheduling system is allowed to add items to the basket.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="editItemsFromBasket" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>True if the appointment scheduling system is allowed to edit items from the basket.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removingItemsFromBasket" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>True if the appointment scheduling system is allowed to remove items from the basket.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cancelAppointment" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>True if the appointment scheduling system is allowed to cancel the appointment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="typeDatabaseId">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">An ID from ISPI Next, DMS or appointment scheduling system. E.g. a customer Id or an appointment Id.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="32"/>
+			<xs:whiteSpace value="collapse"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="typeGuid">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">The representation of a GUID (global unique identifier).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-fA-F0-9\-]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="typeErrorCategoryEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeration of all error categories.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FATAL"/>
+			<xs:enumeration value="REJECT"/>
+			<xs:enumeration value="INFO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="typeCurrency">
+		<xs:annotation>
+			<xs:documentation>ISO 4217 currency code, e.g. "EUR", "USD".</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="typeCommunicationChannelEnum">
+		<xs:annotation>
+			<xs:documentation>An enumeration of all contact channels that can be used to contact a customer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Phone"/>
+			<xs:enumeration value="Email"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="typeAppointmentSource">
+		<xs:annotation>
+			<xs:documentation>An enumeration of the source where a appointment was created.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Online"/>
+			<xs:enumeration value="Onsite"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="typeBmwBrand">
+		<xs:annotation>
+			<xs:documentation>The brand of the BMW vehicle.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BMW"/>
+			<xs:enumeration value="BMW_i"/>
+			<xs:enumeration value="MINI"/>
+			<xs:enumeration value="RR"/>
+			<xs:enumeration value="MOT"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="typeServiceCaseStatusEnum">
+		<xs:annotation>
+			<xs:documentation>An enumeration of all service case status.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AppointmentSchedulingInProgress"/>
+			<xs:enumeration value="AppointmentScheduled"/>
+			<xs:enumeration value="AdvisoryPreparationInProgress"/>
+			<xs:enumeration value="AdvisoryPreparationFinished"/>
+			<xs:enumeration value="ServiceAdvisoryInProgress"/>
+			<xs:enumeration value="ServiceAdvisoryFinished"/>
+			<xs:enumeration value="OrderExecutionInProgress"/>
+			<xs:enumeration value="OrderInvoicingFinished"/>
+			<xs:enumeration value="CarReturned"/>
+			<xs:enumeration value="AftercareInProgress"/>
+			<xs:enumeration value="AftercareFinished"/>
+			<xs:enumeration value="Deferred"/>
+			<xs:enumeration value="Concluded"/>
+			<xs:enumeration value="Cancelled"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

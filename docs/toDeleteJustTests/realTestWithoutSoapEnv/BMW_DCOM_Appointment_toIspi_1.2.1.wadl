@@ -1,0 +1,62 @@
+<application xmlns="http://wadl.dev.java.net/2009/02"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:tns="http://www.bmwgroup.com/appointmentScheduling/types"
+             xsi:schemaLocation="http://wadl.dev.java.net/2009/02 wadl.xsd">
+    <grammars>
+        <include href="Messages_Common_1.2.1.xsd" />
+        <include href="Messages_AppointmentToIspiSystem_1.2.1.xsd"/>
+    </grammars>
+
+    <resources base="https://april-b2i-int.bmwgroup.com/april-dcom/mule/dcom-appointment/1.2.1/">
+        <resource path="versionLookup">
+            <method name="POST">
+                <request>
+                    <representation mediaType="application/xml" element="tns:versionLookupRequest"/>
+                </request>
+                <response>
+                    <representation mediaType="application/xml" element="tns:versionLookupResponse"/>
+                </response>
+            </method>
+        </resource>
+        <resource path="checkHealth">
+            <method name="POST">
+                <request>
+                    <representation mediaType="application/xml" element="tns:checkHealthRequest"/>
+                </request>
+                <response>
+                    <representation mediaType="application/xml" element="tns:checkHealthResponse"/>
+                </response>
+            </method>
+        </resource>
+        <resource path="createAppointment">
+            <method name="POST">
+                <request>
+                    <representation mediaType="application/xml" element="tns:createAppointmentRequest"/>
+                </request>
+                <response>
+                    <representation mediaType="application/xml" element="tns:createAppointmentResponse"/>
+                </response>
+            </method>
+        </resource>
+        <resource path="updateAppointment">
+            <method name="POST">
+                <request>
+                    <representation mediaType="application/xml" element="tns:updateAppointmentRequest"/>
+                </request>
+                <response>
+                    <representation mediaType="application/xml" element="tns:updateAppointmentResponse"/>
+                </response>
+            </method>
+        </resource>
+        <resource path="cancelAppointment">
+            <method name="POST">
+                <request>
+                    <representation mediaType="application/xml" element="tns:cancelAppointmentRequest"/>
+                </request>
+                <response>
+                    <representation mediaType="application/xml" element="tns:cancelAppointmentResponse"/>
+                </response>
+            </method>
+        </resource>
+    </resources>
+</application>

@@ -1,5 +1,8 @@
 package xmlvalidator;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import java.io.File;
 
 public class Main {
@@ -11,33 +14,35 @@ public class Main {
      */
     public static void main(String[] args)
     {
+        // Start the Spring-Application Context for the Spring-Beans
+        ApplicationContext ctx = new AnnotationConfigApplicationContext("xmlvalidator");
+        DirScanner dirScanner = ctx.getBean(DirScanner.class);
 
         if (args.length != 2){
-            System.out.println("You did not enter 2 arguments (directory and schema-file) at program start.");
+            if (args.length < 2) {
+                System.out.println("You entered too few arguments. Please supply directory and schema-file at program start.");
+            }else if(args.length > 2){
+                System.out.println("You entered too many arguments. Please supply directory and schema-file at program start.");
+            }
             System.exit(1);
         }
 
-        // Parse directory
+        // Parse directory argument
         final String inDirectory = args[0];
-        System.out.println(inDirectory);//todo remove
         File directory = new File(inDirectory);
         if (!directory.isDirectory()){
             System.out.println("First input was no directory, but should be.");
             System.exit(1);
         }
 
-        // Parse schemafile
+        // Parse schemafile argument
         final String schemafile = args[1]; //todo further checks?
-        System.out.println(schemafile); //todo remove
         File schema = new File(schemafile);
         if( !schema.getName().toLowerCase().endsWith(".xsd") ){
             System.out.println("Second input was no xsd, but should be.");
             System.exit(1);
         }
-        System.out.println("yes, schema is xsd!"); //todo remove
 
-
-        DirScanner dirScanner = new DirScanner();
         int nrOfXmls = dirScanner.checkDir(directory, schema);
         System.out.println("Number of xml-files found: " + nrOfXmls);
 

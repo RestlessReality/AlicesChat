@@ -1,0 +1,6 @@
+* set schemaVersion to 1.2.1
+* typeCourtesyVehicleBookingInformation: courtesyVehicleDetails has been made optional, because not every appointment scheduling system (e.g. xTime) has the option to select a specific courtesy vehicle. 
+* typeAppointment: vehicleReturnData has been made optional, because a vehicle return date cannot always be selected in every appointment scheduling system (e.g. xTime)
+* typeCustomerIdentification: added customerNames, which has been moved from typeCustomerDetails, so ISPI Next also receives the customer name if the appointment scheduling system sends a customer dmsId 
+* typeCustomerDetails: removed customerNames, which has been moved to typeCustomerIdentification
+* typeCustomerDetails: customerID has been made optional, but is declared as mandatory if the calling system is the appointment scheduling system or the ID is known by the calling system.  
