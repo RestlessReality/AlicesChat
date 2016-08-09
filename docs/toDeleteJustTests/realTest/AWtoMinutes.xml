@@ -1,0 +1,205 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <soapenv:Body>
+        <createAppointmentBaseRequest xmlns="http://www.bmwgroup.com/appointmentScheduling/types">
+            <technicalHeader schemaName="BmwDcomAppointment" schemaVersion="1.2.1" interactionId="936DA01FA9ABDA4D9DA80C7A02AF85CA" application="DCOM" locale="de-DE"/>
+            <businessHeader>
+                <outlet distributionPartnerNumber="12345" bmwOutletNumber="01"/>
+            </businessHeader>
+            <appointmentBase>
+                <customer>
+                    <customerNames>
+                        <lastName>Mustermann</lastName>
+                        <firstName>Max</firstName>
+                        <middleName>M</middleName>
+                    </customerNames>
+                    <dmsId>APP-123</dmsId>
+                    <customerDetails>
+                        <customerId>CU-234</customerId>
+                        <contactData>
+                            <email>max@msutermann.de</email>
+                            <phoneNumber>+49 151 213 456 78</phoneNumber>
+                            <preferredContactChannel>Email</preferredContactChannel>
+                            <street>Max-Straße</street>
+                            <streetNo>1</streetNo>
+                            <extraAddressLine1>Appartment 49</extraAddressLine1>
+                            <extraAddressLine2>Floor 2</extraAddressLine2>
+                            <city>Musterstadt</city>
+                            <postCode>82000</postCode>
+                            <state>Bavaria</state>
+                            <country>Germany</country>
+                        </contactData>
+                    </customerDetails>
+                </customer>
+                <customerVehicle>
+                    <vin>WBAFH81010LC66514</vin>
+                    <numberPlate>M-WH 50</numberPlate>
+                    <brand>BMW</brand>
+                    <modelDesignation>MODEL</modelDesignation>
+                    <registrationDate>2016-03-07</registrationDate>
+                    <odometerReading>5000</odometerReading>
+                </customerVehicle>
+                <teleserviceId>TEL-123</teleserviceId>
+                <dmsAppointmentId>DMS-APP-123</dmsAppointmentId>
+                <dmsOrderId>DMS-ORD-123</dmsOrderId>
+                <serviceCaseId>ABCDEF</serviceCaseId>
+                <originalStatementCustomer>Original Statement</originalStatementCustomer>
+                <commentLineList>
+                    <commentLine>Comment 1</commentLine>
+                    <commentLine>Comment 2</commentLine>
+                    <commentLine>Comment 3</commentLine>
+                </commentLineList>
+                <basket>
+                    <jobs>
+                        <ispiJobId>100</ispiJobId>
+                        <schedulingSystemJobId>101</schedulingSystemJobId>
+                        <jobDescription>Job Description 1</jobDescription>
+                        <originalStatementCustomer>Original Statement 1</originalStatementCustomer>
+                        <commentLineList>
+                            <commentLine>Comment 1 1</commentLine>
+                            <commentLine>Comment 1 2</commentLine>
+                            <commentLine>Comment 1 3</commentLine>
+                        </commentLineList>
+                        <repeatedRepair>true</repeatedRepair>
+                        <fastPlanningItem>
+                            <grossPrice currency="EUR">10.00</grossPrice>
+                            <categoryId>CAT-123</categoryId>
+                            <Id>ID-123</Id>
+                            <description>Description 1</description>
+                            <remark>Remark</remark>
+                            <quantityInAW>5</quantityInAW>
+                        </fastPlanningItem>
+                        <flatRateUnitList>
+                            <!-- should be converted -->
+                            <flatRateUnit>
+                                <grossPrice currency="EUR">100.00</grossPrice>
+                                <number>5</number>
+                                <description>Description 2</description>
+                                <quantity>18</quantity>
+                                <unit>min</unit>
+                                <isLocal>true</isLocal>
+                            </flatRateUnit>
+                            <!-- should not be converted, since unit is already min -->
+                            <flatRateUnit>
+                                <grossPrice currency="EUR">130.00</grossPrice>
+                                <number>5</number>
+                                <description>Description 2</description>
+                                <quantity>67</quantity>
+                                <unit>min</unit>
+                                <isLocal>false</isLocal>
+                            </flatRateUnit>
+                            <!-- should not be converted, since no unit was set -->
+                            <flatRateUnit>
+                                <grossPrice currency="EUR">130.00</grossPrice>
+                                <number>5</number>
+                                <description>Description 2</description>
+                                <quantity>67</quantity>
+                                <isLocal>false</isLocal>
+                            </flatRateUnit>
+                        </flatRateUnitList>
+                        <subletList>
+                            <sublet>
+                                <grossPrice currency="USD">1000.00</grossPrice>
+                                <subletCode>SUB-123</subletCode>
+                                <description>Description 3</description>
+                            </sublet>
+                        </subletList>
+                        <partList>
+                            <part>
+                                <grossPrice currency="AUA">10000.00</grossPrice>
+                                <number>7</number>
+                                <description>Description 4</description>
+                                <quantity>25</quantity>
+                                <unit>min</unit>
+                                <isLocal>false</isLocal>
+                            </part>
+                        </partList>
+                        <packageList>
+                            <package>
+                                <grossPrice currency="RUB">1000000.00</grossPrice>
+                                <packageId>
+                                    <number>555</number>
+                                    <isLocal>false</isLocal>
+                                </packageId>
+                                <description>Description 5</description>
+                                <packageType>SRP</packageType>
+                                <defectCode code="123" description="Defect"/>
+                                <flatRateUnitList>
+                                    <flatRateUnit>
+                                        <grossPrice currency="CHR">50.00</grossPrice>
+                                        <number>8</number>
+                                        <description>Description 6</description>
+                                        <quantity>33</quantity>
+                                        <unit>min</unit>
+                                        <isLocal>true</isLocal>
+                                    </flatRateUnit>
+                                    <flatRateUnit>
+                                        <grossPrice currency="USD">5.00</grossPrice>
+                                        <number>9</number>
+                                        <description>Description 6</description>
+                                        <quantity>31</quantity>
+                                        <unit>min</unit>
+                                        <isLocal>true</isLocal>
+                                    </flatRateUnit>
+                                    <flatRateUnit>
+                                        <grossPrice currency="USD">53.00</grossPrice>
+                                        <number>9</number>
+                                        <description>Description 6</description>
+                                        <quantity>15</quantity>
+                                        <isLocal>true</isLocal>
+                                    </flatRateUnit>
+                                </flatRateUnitList>
+                                <subletList>
+                                    <sublet>
+                                        <grossPrice currency="AED">45.00</grossPrice>
+                                        <subletCode>SUB-CODE</subletCode>
+                                        <description>Description 7</description>
+                                    </sublet>
+                                </subletList>
+                                <partList>
+                                    <part>
+                                        <grossPrice currency="AWG">9999.99</grossPrice>
+                                        <number>99</number>
+                                        <description>Description 8</description>
+                                        <quantity>99</quantity>
+                                        <unit>AW</unit>
+                                        <isLocal>true</isLocal>
+                                    </part>
+                                </partList>
+                            </package>
+                        </packageList>
+                        <jobFlexFieldList>
+                            <flexField name="FLEX 1">Value 1</flexField>
+                            <flexField name="FLEX 2">Value 2</flexField>
+                            <flexField name="FLEX 3">Value 3</flexField>
+                        </jobFlexFieldList>
+                    </jobs>
+                    <jobs>
+                        <packageList>
+                            <package>
+                                <packageId>
+                                    <number>555</number>
+                                    <isLocal>false</isLocal>
+                                </packageId>
+                                <packageType>SRP</packageType>
+                            </package>
+                        </packageList>
+                    </jobs>
+                    <jobs/>
+                </basket>
+                <flexFieldList>
+                    <flexField name="FLEX 4">Value 4</flexField>
+                    <flexField name="FLEX 5">Value 5</flexField>
+                    <flexField name="FLEX 6">Value 6</flexField>
+                </flexFieldList>
+                <serviceCaseStatus>AdvisoryPreparationInProgress</serviceCaseStatus>
+                <requiredWorkshopCapacity>500</requiredWorkshopCapacity>
+                <permissions>
+                    <addingItemsToBasket>true</addingItemsToBasket>
+                    <editItemsFromBasket>true</editItemsFromBasket>
+                    <removingItemsFromBasket>true</removingItemsFromBasket>
+                    <cancelAppointment>true</cancelAppointment>
+                </permissions>
+            </appointmentBase>
+        </createAppointmentBaseRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
