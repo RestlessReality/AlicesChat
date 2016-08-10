@@ -12,6 +12,7 @@
     <modules>
         <module>reflection</module>
         <module>threading</module>
+        <module>pattern</module>
     </modules>
 
     <build>

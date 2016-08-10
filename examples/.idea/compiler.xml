@@ -22,12 +22,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="pattern" />
         <module name="reflection" />
         <module name="threading" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="example-projects" target="1.8" />
+      <module name="pattern" target="1.8" />
       <module name="reflection" target="1.8" />
       <module name="threading" target="1.8" />
     </bytecodeTargetLevel>
