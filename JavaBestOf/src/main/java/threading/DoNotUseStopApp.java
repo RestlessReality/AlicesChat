@@ -1,9 +1,8 @@
-package com.qaware.mentoring.threading;
+package threading;
 
 import java.util.Date;
 
-import static com.qaware.mentoring.threading.SleepUtils.sleepSomeTime;
-
+import static threading.SleepUtils.sleepSomeTime;
 /**
  * Do not use stop() to stop a thread (this method is deprecated) because this can leave
  * the thread in an inconsistent state.

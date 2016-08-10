@@ -1,14 +1,13 @@
-package com.qaware.mentoring.threading;
+package threading;
 
 import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
-import static com.qaware.mentoring.threading.SleepUtils.sleepSomeTime;
-
+import static threading.SleepUtils.sleepSomeTime;
 /**
- * Demonstrates how to start a thread using the {@link java.util.concurrent.Callable} interface
+ * Demonstrates how to start a thread using the {@link Callable} interface
  */
 public class StartThreadWithCallableApp {
 
@@ -22,8 +21,8 @@ public class StartThreadWithCallableApp {
      */
     public static void main(String[] args) {
 
-        // In Java 8 you can collapse the anonymous class into a Lambda.
-        // IntelliJ will help you to do so with Alt + Enter if you have placed the caret on the constructor call.
+        // Anonymous thread-class of the Callable-Interface, capable of providing a return-value after execution.
+        // Collapse the anonymous class into a Lambda: Alt+Enter
         Callable<Integer> fibonacciCallable = new Callable<Integer>() {
             @Override
             public Integer call() throws Exception {
@@ -43,6 +42,7 @@ public class StartThreadWithCallableApp {
             }
         };
 
+        // "double-wrapping" of the Thread-call, because only a "Task" ran obtain a return value
         FutureTask<Integer> fibonacciTask = new FutureTask<>(fibonacciCallable);
         Thread thread = new Thread(fibonacciTask, "With-Callable-Inside");
         // Starts a separate thread - important: do not call .run() instead of .start()

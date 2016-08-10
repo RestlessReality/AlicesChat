@@ -1,14 +1,12 @@
-package com.qaware.mentoring.threading;
+package threading;
 
 import java.util.Date;
-import java.util.concurrent.CountDownLatch;
 
-import static com.qaware.mentoring.threading.SleepUtils.sleepSomeTime;
-
+import static threading.SleepUtils.sleepSomeTime;
 /**
  * A thread can have the following states:
  *
- * - NEW                not started yet
+ * - NEW                bevore call of .start() - not started yet
  * - RUNNABLE           started, running
  * - BLOCKED            waits for a lock, e.g. when entering a synchronized block
  * - WAITING            waiting, e.g. for notify()
@@ -30,7 +28,9 @@ public class ThreadStatesApp {
     private static final int NUMBER_OF_MESSAGES_FROM_THREAD = 10;
     private static final int NUMBER_OF_TIMES_TO_WATCH = 10;
 
-    private static final CountDownLatch latch = new CountDownLatch(1);
+    //todo SKR is quite shure the latch is a race condition, therefore delete it.
+    //but a latch might be useful sometimes. hang on.
+//    private static final CountDownLatch latch = new CountDownLatch(1);
 
     /**
      * Runs the program.
@@ -40,22 +40,24 @@ public class ThreadStatesApp {
     public static void main(String[] args) {
 
         final Thread greetingThread = new Thread(new Runnable() {
+            private int a = 0; // The Runnable can have fields. That's why it's only startable once.
             @Override
             public void run() {
                 for (int i = 0; i < NUMBER_OF_MESSAGES_FROM_THREAD; ++i) {
                     System.out.println(new Date() + ": Hello from thread " + Thread.currentThread().getName() +
                             " -> " + Thread.currentThread().getState());
+                    a++;
                     // The following statement puts the thread from RUNNING into state TIMED_WAITING
                     // However we can not print the state when this thread is waiting, therefore another thread,
                     // the WATCHING-THREAD, watches us and prints out our state.
                     sleepSomeTime();
                 }
-                // The latch is used at the end of the main() method in order to wait for this thread to terminate.
-                latch.countDown();
+//                // The latch is used at the end of the main() method in order to wait for this thread to terminate.
+//                latch.countDown();
             }
         }, "GREETING-THREAD");
         System.out.println("Thread state before .start() -> " + greetingThread.getState());
-        greetingThread.start();
+        greetingThread.start(); // The Runnable can have fields. That's why it's only startable once.
 
         final Thread watchingThread = new Thread(new Runnable() {
             @Override
@@ -71,11 +73,13 @@ public class ThreadStatesApp {
 
         try {
             // We wait here until the greetingThread has finished, i.e. has count down the latch.
-            latch.await();
+//            latch.await();
+            greetingThread.join(); //waits for the end of greetingThread
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+        //The thread still provides the state Terminated if finished/dead.
         System.out.println("Thread state after termination -> " + greetingThread.getState());
 
     }
