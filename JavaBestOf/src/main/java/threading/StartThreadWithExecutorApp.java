@@ -1,10 +1,10 @@
-package com.qaware.mentoring.threading;
+package threading;
 
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static com.qaware.mentoring.threading.SleepUtils.sleepSomeTime;
+import static threading.SleepUtils.sleepSomeTime;
 
 /**
  * Demonstrates how to start threads using an {@link ExecutorService}.

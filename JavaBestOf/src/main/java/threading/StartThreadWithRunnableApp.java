@@ -1,11 +1,11 @@
-package com.qaware.mentoring.threading;
+package threading;
 
 import java.util.Date;
 
-import static com.qaware.mentoring.threading.SleepUtils.sleepSomeTime;
-
+import static threading.SleepUtils.sleepSomeTime;
 /**
  * Demonstrates how to start a thread using the {@link Runnable} interface.
+ * This is the older interface.
  */
 public class StartThreadWithRunnableApp {
 
@@ -18,6 +18,8 @@ public class StartThreadWithRunnableApp {
      */
     public static void main(String[] args) {
 
+        // Anonymous class. Runnable is the interface-name. Then override the methods.
+        //
         // In Java 8 you can collapse the anonymous class into a Lambda.
         // IntelliJ will help you to do so with Alt + Enter if you have placed the caret on the constructor call.
         Runnable runnable = new Runnable() {
@@ -37,4 +39,6 @@ public class StartThreadWithRunnableApp {
         // because .run() would simply call the method of the Runnable in the same thread
         thread.start();
     }
+
+
 }

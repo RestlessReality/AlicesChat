@@ -1,4 +1,4 @@
-package com.qaware.mentoring.threading;
+package threading;
 
 import java.util.Random;
 
