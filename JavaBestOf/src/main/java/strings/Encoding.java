@@ -1,4 +1,4 @@
-package com.qaware.mentoring.strings;
+package strings;
 
 
 import org.apache.commons.codec.binary.BinaryCodec;
@@ -30,7 +30,7 @@ public class Encoding {
 
         // Internally Java uses UTF-16 as encoding in memory: @see java.lang.String
 
-        final String originalMessage = "Hello World§";
+        final String originalMessage = "Hello World§%^&€";
         System.out.println("Original message: " + originalMessage);
 
         // Back conversion of Unicode Code Points online: https://r12a.github.io/apps/conversion/

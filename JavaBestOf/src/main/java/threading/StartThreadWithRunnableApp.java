@@ -23,7 +23,7 @@ public class StartThreadWithRunnableApp {
         // In Java 8 you can collapse the anonymous class into a Lambda.
         // IntelliJ will help you to do so with Alt + Enter if you have placed the caret on the constructor call.
         Runnable runnable = new Runnable() {
-            @Override
+                @Override
             public void run() {
                 for (int i = 0; i < NUMBER_OF_MESSAGES_FROM_THREAD; ++i) {
                     System.out.println(new Date() + ": Hello from thread " + Thread.currentThread().getName());

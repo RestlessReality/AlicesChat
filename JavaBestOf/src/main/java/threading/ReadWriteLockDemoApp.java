@@ -1,5 +1,4 @@
-package com.qaware.mentoring.threading;
-
+package threading;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -49,7 +48,7 @@ public class ReadWriteLockDemoApp {
                 System.err.println("Interrupted writer thread");
             } finally {
                 System.out.println("Writing thread releases lock.");
-                lock.writeLock().unlock();
+                lock.writeLock().unlock(); // actually the unlock should be the first statement...
             }
         });
 

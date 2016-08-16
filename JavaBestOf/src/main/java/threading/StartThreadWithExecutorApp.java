@@ -8,8 +8,12 @@ import static threading.SleepUtils.sleepSomeTime;
 
 /**
  * Demonstrates how to start threads using an {@link ExecutorService}.
- * The executor service usually uses a thread pool in order to avoid
+ *
+ * The executor service usually uses a thread pool of pre-created threads, in order to avoid
  * the expensive creation of new threads.
+ *
+ * If the number of submitted Runnables is larger than the pool-size, the remaining
+ * Runnables are started, once the first Runnables are finished
  */
 public class StartThreadWithExecutorApp {
 
@@ -30,22 +34,22 @@ public class StartThreadWithExecutorApp {
 
         // Starts the threads one after another
         for (int i = 0; i < NUMBER_OF_THREADS; ++i) {
-            executorService.execute(newRunnable());
+            executorService.execute(newRunnable(i));
         }
 
         // Shuts down the executor service properly
         executorService.shutdown();
     }
 
-    private static Runnable newRunnable() {
+    private static Runnable newRunnable(int nr) {
         return () -> {
             String load = "*";
             for (int i = 0; i < NUMBER_OF_MESSAGES_FROM_EACH_THREAD; ++i) {
-                System.out.println(new Date() + ": Hello from thread " + Thread.currentThread().getName() + " " + load);
+                System.out.println(new Date() + ": Hello from thread " + Thread.currentThread().getName() + " and Runnable " + nr + " load " + load);
                 load += "*";
                 sleepSomeTime();
             }
             System.out.println(new Date() + ": Thread " + Thread.currentThread().getName() + " finishes!");
-        };
+    };
     }
 }

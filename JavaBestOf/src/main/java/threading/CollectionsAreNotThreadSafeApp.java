@@ -1,8 +1,19 @@
 package threading;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+
+/**
+ * When do I need threading?
+ *
+ * When you do not want to block other processes, running parallel to you. Consider:
+ * - a UI which should be always working
+ * - executing time-consuming tasks, like writing to disk
+ * - being able to process several requests at the same time,
+ *  like several clients trying to connect to a server
+ */
 
 /**
  * Demonstrates that accessing Collection objects from several threads can be dangerous.
@@ -10,18 +21,13 @@ import java.util.concurrent.ConcurrentHashMap;
  * <p>
  * This program shares an ArrayList among two threads, ArrayLists in Java are not thread safe.
  *
- * One thread adds elements to the list, the other thread removes the equal amount of elements.
- * After both Threads terminate the number of elements in the List should be the same as before.
- * This is of course not the case (most of the time).
- *
  * If you want to access a Collection object from several Threads you might want to use
  * one of the thread-safe Collection wrappers, e.g. Collections.synchronizedList(...) or
  * a thread safe implementation of the Collection (e.g. {@link ConcurrentHashMap}).
  *
- * Be careful that even if you use a thread-safe Collection that only means
+ * Be careful that even if you use a thread-safe Collection, that only means
  * that calling a method of the Collection will not cause a race condition (i.e. it is atomic on the Collection).
  * Successive calls to the Collection object that rely on each other might still cause wrong results.
- *
  * For example if several Threads execute a piece of code like this
  *
  * if (!list.empty()) {

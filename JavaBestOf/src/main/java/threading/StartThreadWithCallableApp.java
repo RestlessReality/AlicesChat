@@ -8,6 +8,7 @@ import java.util.concurrent.FutureTask;
 import static threading.SleepUtils.sleepSomeTime;
 /**
  * Demonstrates how to start a thread using the {@link Callable} interface
+ * Newer interface than Runnable
  */
 public class StartThreadWithCallableApp {
 

@@ -41,7 +41,9 @@ public class RaceConditionAvoidanceWithLockApp {
         return new Thread(() -> {
             for (int i = 0; i < MAX_COUNT; ++i) {
                 // Both threads synchronize on the same LOCK object
-                synchronized (LOCK) {
+                synchronized (LOCK) { // Benutzung des Lock-Objektes.
+                                    // Solange ich nur eines hab je Klasse, ist das das Gleiche wie das .class-Objekt zu benutzen.
+
                     // Because of the synchronized block only one thread is allowed to enter this section.
                     // The read and the write operation is therefore "atomic".
                     // Disclaimer: In this example we assume that no other threads are reading/writing
