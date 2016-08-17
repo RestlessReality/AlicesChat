@@ -36,5 +36,9 @@
             <artifactId>commons-codec</artifactId>
         </dependency>
     </dependencies>
+	
+	<modules>
+        <module>web</module>
+    </modules>
 
 </project>
