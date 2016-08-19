@@ -8,39 +8,35 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * When do I need threading?
  *
- * When you do not want to block other processes, running parallel to you. Consider:
+ * When you don't want to block other processes, running parallel to you. Consider:
  * - a UI which should be always working
  * - executing time-consuming tasks, like writing to disk
  * - being able to process several requests at the same time,
- *  like several clients trying to connect to a server
+ *   like several clients trying to connect to a server
  */
 
 /**
  * Demonstrates that accessing Collection objects from several threads can be dangerous.
- * Most Collections are not thread safe because thread safety incurs performance costs.
+ * Most Collections are not thread safe. (Because thread safety incurs performance costs)
  * <p>
- * This program shares an ArrayList among two threads, ArrayLists in Java are not thread safe.
- *
- * If you want to access a Collection object from several Threads you might want to use
- * one of the thread-safe Collection wrappers, e.g. Collections.synchronizedList(...) or
- * a thread safe implementation of the Collection (e.g. {@link ConcurrentHashMap}).
+ * If you want to access a Collection object from several Threads you should use
+ * one
+ * - of the thread-safe Collection wrappers, e.g. Collections.synchronizedList(...) or
+ * - a thread safe implementation of the Collection (e.g. {@link ConcurrentHashMap}).
  *
  * Be careful that even if you use a thread-safe Collection, that only means
- * that calling a method of the Collection will not cause a race condition (i.e. it is atomic on the Collection).
- * Successive calls to the Collection object that rely on each other might still cause wrong results.
- * For example if several Threads execute a piece of code like this
- *
+ * that calling a method of the Collection will not cause a race condition, i.e. it is atomic on the Collection.
+ * Successive calls to the Collection object that rely on each other, might still cause wrong results.
+ * For example if several Threads execute a piece of code like this:
  * if (!list.empty()) {
  *     list.remove(element);
  * }
- *
- * you probably want to synchronize the whole block, otherwise the Collection could have
- * been changed by another Thread between the call to empty() and the call to remove()
- * which is probably not what you wanted.
+ * you should synchronize the whole block, otherwise the Collection could have
+ * been changed by another Thread between the call to empty() and the call to remove().
  */
+
 public class CollectionsAreNotThreadSafeApp {
 
-    // Tweak this constant if the program takes too long to run
     private static final int COLLECTION_SIZE = 100_000;
 
     private static final int INCREMENTS = COLLECTION_SIZE;
@@ -53,27 +49,21 @@ public class CollectionsAreNotThreadSafeApp {
 //     private static List<Object> sharedState = Collections.synchronizedList(new ArrayList<>(COLLECTION_SIZE + INCREMENTS));
     private static List<Object> sharedState = new ArrayList<>(COLLECTION_SIZE + INCREMENTS);
 
-    /**
-     * Runs the program.
-     *
-     * @param args not used
-     */
     public static void main(String[] args) {
-
-        for (int stackFrame = 0; stackFrame < COLLECTION_SIZE; ++stackFrame) {
+        for (int i = 0; i < COLLECTION_SIZE; ++i) {
             sharedState.add(DUMMY_LIST_ELEMENT);
         }
         System.out.println("Size before threads start: " + sharedState.size());
 
-        Thread thread1 = unsafeAddingThread();
-        Thread thread2 = unsafeRemovingThread();
+        Thread addingThread = unsafeAddingThread();
+        Thread removingThread = unsafeRemovingThread();
 
-        thread1.start();
-        thread2.start();
+        addingThread.start();
+        removingThread.start();
 
         try {
-            thread1.join();
-            thread2.join();
+            addingThread.join();
+            removingThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

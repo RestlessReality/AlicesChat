@@ -15,6 +15,9 @@ import java.time.LocalDateTime;
 
 /**
  * Simple servlet which returns the date on GET HTTP requests.
+ *
+ * Note: usually you would not implement a HttpServlet yourself,
+ * but use a library which uses it.
  */
 public class DateServlet extends HttpServlet {
 

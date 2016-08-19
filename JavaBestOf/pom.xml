@@ -6,6 +6,7 @@
 
     <groupId>com.qaware.javabestof</groupId>
     <artifactId>javabestof</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <build>
         <plugins>
@@ -28,7 +29,7 @@
                 <version>1.4</version>
             </dependency>
         </dependencies>
-    </dependencyManagement>p
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -36,9 +37,10 @@
             <artifactId>commons-codec</artifactId>
         </dependency>
     </dependencies>
-	
+
 	<modules>
         <module>web</module>
+        <module>basics</module>
     </modules>
 
 </project>
