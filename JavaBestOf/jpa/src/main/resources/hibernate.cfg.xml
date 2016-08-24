@@ -1,0 +1,34 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- Makes Hibernate talk Derby's MYSQL dialect -->
+        <property name="hibernate.dialect">
+            org.hibernate.dialect.DerbyTenSevenDialect
+        </property>
+
+        <!-- JDBC driver -->
+        <property name="hibernate.connection.driver_class">
+            org.apache.derby.jdbc.EmbeddedDriver
+        </property>
+
+        <!-- Property makes which automatically creates the schemas in the database using DDL -->
+        <property name="hibernate.hbm2ddl.auto">create</property>
+
+        <!--
+            URL to the embedded Derby DB, creates one in memory if none exists yet,
+            see http://www.codejava.net/java-se/jdbc/connect-to-apache-derby-java-db-via-jdbc
+        -->
+        <property name="hibernate.connection.url">
+            jdbc:derby:memory:codejava/webdb;create=true
+        </property>
+        <property name="hibernate.connection.username">
+        </property>
+        <property name="hibernate.connection.password">
+        </property>
+
+    </session-factory>
+</hibernate-configuration>
