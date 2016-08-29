@@ -63,7 +63,7 @@ public class SoapEnvelopeRemover {
      * @param xml the xml as String which should be converted into a document
      * @return the converted document
      */
-    public Document stringToDocument(String xml) {
+    public Document stringToDocument(String xml) { //todo given xml is identical with dcom-test-input
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         documentBuilderFactory.setNamespaceAware(true);
         DocumentBuilder builder;
@@ -71,9 +71,8 @@ public class SoapEnvelopeRemover {
 
         try {
             builder = documentBuilderFactory.newDocumentBuilder();
-            InputSource inputSource = new InputSource(new StringReader(xml));
-            document = builder.parse(new InputSource(new StringReader(xml)));
-        } catch (ParserConfigurationException | SAXException | IOException e) { //todo what's upp with the java version and multi-catch?
+            document = builder.parse(new InputSource(new StringReader(xml))); //todo different from dcom-result
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new IllegalStateException("Error while parse the following string to a document object in soap tests "
                     + xml, e);
         }

@@ -46,17 +46,13 @@ public class DirScanner {
                 }else {
                     nrOfXmls++;
 
-                    // remove Soap-envelope //todo NOT YET USED
-                    try {
-                        Document document = soapEnvelopeRemover.reduceXMLToSoapBody(getFileContentAsString(file), XmlNamespaces.MAP);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    // remove Soap-envelope
+                    Document xmlAsDocument = soapEnvelopeRemover.reduceXMLToSoapBody(getFileContentAsString(file), XmlNamespaces.MAP);
 
                     // check if conform to schema
                     System.out.println("checking xml-file against schema");
                     try {
-                        if (xmlValidator.isSchemaConform(file, schemafile)) {
+                        if (xmlValidator.isSchemaConform(new File(xmlAsDocument.getDocumentURI()), schemafile)) { //todo Nullpointer-Exception!
                             System.out.println("yes, it's conform!");
                         } else {
                             System.out.println("not conform");
@@ -71,8 +67,18 @@ public class DirScanner {
 
     }
 
-    private String getFileContentAsString(File file) throws IOException {
-        byte[] encoded = Files.readAllBytes(file.toPath());
+    /**
+     * Takes a File and returns it's content as String
+     * @param file A File
+     * @return A String, containing the content of the File
+     */
+    private String getFileContentAsString(File file){
+        byte[] encoded = new byte[0];
+        try {
+            encoded = Files.readAllBytes(file.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return new String(encoded);
     }
 
