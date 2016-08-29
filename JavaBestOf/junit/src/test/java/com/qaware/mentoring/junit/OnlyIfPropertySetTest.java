@@ -19,7 +19,7 @@ public class OnlyIfPropertySetTest {
      */
     @BeforeClass
     public static void setUp() {
-        System.setProperty(REQUIRED_PROPERTY, PROPERTY_VALUE);
+//        System.setProperty(REQUIRED_PROPERTY, PROPERTY_VALUE);
     }
 
     @Rule

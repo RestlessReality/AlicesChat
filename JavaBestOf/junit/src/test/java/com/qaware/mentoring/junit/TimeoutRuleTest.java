@@ -11,7 +11,7 @@ public class TimeoutRuleTest {
 
     // Timeout each test after 50 milliseconds
     @Rule
-    public Timeout timeout = new Timeout(50);
+    public Timeout timeout = new Timeout(500);
 
     @Test
     public void firstTest() throws Exception {

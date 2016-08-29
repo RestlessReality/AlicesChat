@@ -24,6 +24,11 @@ public class TemporaryFolderWithoutRuleTest {
         folder.mkdir();
     }
 
+    @Before
+    public void dobla(){
+
+    }
+
     @Test
     public void test() throws Exception {
         File file = new File(folder, "test.txt");

@@ -22,12 +22,15 @@ public class OnlyIfPropertySet implements TestRule {
 
     @Override
     public Statement apply(Statement statement, Description description) {
-        Statement result = statement;
-        // Conditionally replace the rule if the property is not set (i.e. is null)
         if (System.getProperty(property) == null) {
-            result = new IgnoreStatement(testLabel(description) + " not executed because property '" + property + "' not found");
+            return new Statement() {
+                @Override
+                public void evaluate() throws Throwable {
+                    System.out.println("Nothing happens and no test is executed -> The Power of Rules! ");
+                }
+            };
         }
-        return result;
+        return statement;
     }
 
     private String testLabel(Description description) {
