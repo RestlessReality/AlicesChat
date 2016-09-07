@@ -3,6 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JavaBestOf.iml" filepath="$PROJECT_DIR$/JavaBestOf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/basics/basics.iml" filepath="$PROJECT_DIR$/basics/basics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bean-validation/bean-validation.iml" filepath="$PROJECT_DIR$/bean-validation/bean-validation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/i18n-internationalization/i18n-internationalization.iml" filepath="$PROJECT_DIR$/i18n-internationalization/i18n-internationalization.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web/servlet-example.iml" filepath="$PROJECT_DIR$/web/servlet-example.iml" />
     </modules>
   </component>
 </project>

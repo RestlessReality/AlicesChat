@@ -22,11 +22,18 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="JavaBestOf" />
+        <module name="basics" />
+        <module name="bean-validation" />
+        <module name="i18n-internationalization" />
+        <module name="servlet-example" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="JavaBestOf" target="1.5" />
+      <module name="basics" target="1.8" />
+      <module name="bean-validation" target="1.8" />
+      <module name="i18n-internationalization" target="1.8" />
+      <module name="JavaBestOf" target="1.8" />
+      <module name="servlet-example" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
