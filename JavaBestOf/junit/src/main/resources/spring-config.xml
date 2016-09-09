@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- We can use a mock implementation of the required interface in the test -->
+
+    <bean id="mockImpl" class="com.qaware.mentoring.junit.spring.RequiredInterfaceImpl"/>
+
+    <!-- Assembles the Spring bean we want to test -->
+
+    <bean id="fooService" class="com.qaware.mentoring.junit.spring.FooService">
+        <constructor-arg ref="mockImpl"/>
+    </bean>
+
+</beans>
