@@ -6,15 +6,20 @@
    http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          id="WebApp_ID" version="2.5">
 
+    <!-- Default page -->
+
     <welcome-file-list>
-        <welcome-file>faces/home.xhtml</welcome-file>
+        <welcome-file>helloWorld/home.xhtml</welcome-file>
     </welcome-file-list>
 
-    <!--
-       FacesServlet is main servlet responsible to handle all request.
-       It acts as central controller.
-       This servlet initializes the JSF components before the JSP is displayed.
-    -->
+    <!-- Enables better error messages and client side JavaScript debugging -->
+
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+
+    <!-- Faces Servlet which dispatches all requests -->
 
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
@@ -22,21 +27,12 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
-    </servlet-mapping>
+    <!-- The Faces Servlet is configured to listen to requests at /helloWorld/* and *.xhtml -->
 
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.jsf</url-pattern>
+        <url-pattern>/helloWorld/*</url-pattern>
     </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.faces</url-pattern>
-    </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>

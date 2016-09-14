@@ -1,12 +1,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <title>Hello World JSF!</title>
 </h:head>
 
 <h:body>
-    <h:outputText value="#{helloWorldBean.getMessage()}"/>
+    <h:outputText value="#{helloWorldBean.message}"/>
+    <h:form>
+        <h:commandLink action="#{navigationController.showPage}" value="Page1">
+            <f:param name="pageId" value="1" />
+        </h:commandLink>
+        <h:commandLink action="#{navigationController.showPage}" value="Page2">
+            <f:param name="pageId" value="2" />
+        </h:commandLink>
+        <h:commandLink action="#{navigationController.showPage}" value="Page3">
+            <f:param name="pageId" value="3" />
+        </h:commandLink>
+    </h:form>
 </h:body>
 </html>
